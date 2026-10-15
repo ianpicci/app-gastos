@@ -1,40 +1,75 @@
-# app-gastos
+# React + TypeScript + Vite
 
-Aplicativo pessoal de controle de gastos, desenvolvido como PWA para uso no iPhone.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Objetivo
-Registrar receitas e despesas em poucos segundos, acompanhar gastos por categoria e visualizar resumos e gráficos mensais.
+Currently, two official plugins are available:
 
-## Tecnologias planejadas
-- React + TypeScript
-- PWA instalável no iPhone
-- Dexie.js / IndexedDB para armazenamento local (offline-first)
-- Google Drive para backups versionados, com autenticação OAuth
-- Cloudflare Pages para hospedagem, respeitando os limites gratuitos
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Escopo inicial (MVP)
-- Registro rápido de receitas e despesas (valor, categoria e data; descrição opcional)
-- Categorias personalizáveis
-- Histórico com pesquisa, filtros, edição e exclusão
-- Resumo mensal e gráficos
-- Exportação JSON/CSV e restauração
-- Indicação do estado do backup
+## React Compiler
 
-## Princípios
-1. Salvar primeiro localmente; nunca bloquear um lançamento aguardando a nuvem.
-2. Usar valores monetários como inteiros em centavos.
-3. Proteger dados pessoais, sem armazenar tokens ou segredos no repositório.
-4. Implementar e testar uma etapa por vez.
-5. Manter o projeto dentro das cotas gratuitas dos serviços adotados.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Etapas
-- [x] Criar repositório GitHub e registrar a especificação inicial
-- [ ] Criar projeto React + TypeScript com Vite
-- [ ] Montar interface e navegação mobile
-- [ ] Implementar persistência local e operações de lançamentos/categorias
-- [ ] Implementar histórico, resumos e gráficos
-- [ ] Integrar backup Google Drive e restauração
-- [ ] Configurar PWA, publicação e testes reais no iPhone
+## Expanding the ESLint configuration
 
-## Status
-Planejamento inicial. Ainda não há aplicativo executável.
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+
+```
+
+You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+
+```
