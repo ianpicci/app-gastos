@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Layout } from './components/Layout'
 import { QuickAddModal } from './components/QuickAddModal'
+import { PwaUpdatePrompt } from './components/PwaUpdatePrompt'
 import { ensureDefaultCategories } from './db/categories'
 import { AnalyticsPage } from './pages/AnalyticsPage'
 import { HistoryPage } from './pages/HistoryPage'
@@ -19,5 +20,6 @@ export default function App() {
   useEffect(() => { void ensureDefaultCategories() }, [])
   const navigate = (page: PageId) => { window.location.hash = `/${page}` }
   const page = { home: <HomePage onSelectTransaction={setSelectedTransaction} />, history: <HistoryPage onSelectTransaction={setSelectedTransaction} />, analytics: <AnalyticsPage />, settings: <SettingsPage /> }[activePage]
-  return <Layout activePage={activePage} onNavigate={navigate} onQuickAdd={() => setQuickAddOpen(true)}>{page}{(isQuickAddOpen || selectedTransaction) && <QuickAddModal transaction={selectedTransaction ?? undefined} onClose={() => { setQuickAddOpen(false); setSelectedTransaction(null) }} />}</Layout>
+  const isFormOpen = isQuickAddOpen || selectedTransaction !== null
+  return <><Layout activePage={activePage} onNavigate={navigate} onQuickAdd={() => setQuickAddOpen(true)}>{page}{isFormOpen && <QuickAddModal transaction={selectedTransaction ?? undefined} onClose={() => { setQuickAddOpen(false); setSelectedTransaction(null) }} />}</Layout><PwaUpdatePrompt isFormOpen={isFormOpen} /></>
 }
