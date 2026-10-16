@@ -1,0 +1,6 @@
+import { categories } from '../data/mockData'
+import { formatCurrency } from '../utils/formatters'
+
+export function AnalyticsPage() {
+  return <div className="page"><header className="page-header"><div><p className="eyebrow">Visão geral de outubro</p><h1>Análises</h1></div></header><section className="analytics-highlight"><p>Você gastou</p><h2>{formatCurrency(2072.4)}</h2><span>12% a menos que no mês anterior</span><div className="bars">{[38, 54, 42, 74, 56, 88, 65, 48, 61, 36, 52, 45].map((height, index) => <i key={index} style={{ height: `${height}%` }} className={index === 9 ? 'current' : ''} />)}</div><div className="bar-labels"><span>01</span><span>10</span><span>20</span><span>30</span></div></section><section className="content-section"><div className="section-heading"><div><p className="eyebrow">Onde seu dinheiro foi</p><h2>Por categoria</h2></div></div><div className="category-list">{categories.map((category) => <div className="category-row" key={category.label}><i style={{ background: category.color }} /><span>{category.label}</span><div className="category-bar"><b style={{ width: `${category.value / 14.5}%`, background: category.color }} /></div><strong>{formatCurrency(category.value)}</strong></div>)}</div></section></div>
+}

@@ -1,0 +1,4 @@
+import { Icon } from '../components/Icon'
+
+const items = [['Perfil', 'André Martins'], ['Categorias', 'Organize seus gastos'], ['Orçamentos', 'Defina seus limites'], ['Aparência', 'Claro']]
+export function SettingsPage() { return <div className="page"><header className="page-header"><div><p className="eyebrow">Personalize sua experiência</p><h1>Ajustes</h1></div></header><section className="settings-profile"><span className="avatar large">AM</span><div><h2>André Martins</h2><p>Conta pessoal</p></div><Icon name="chevron-right" /></section><section className="settings-list">{items.map(([title, detail]) => <button key={title}><span><strong>{title}</strong><small>{detail}</small></span><Icon name="chevron-right" size={19} /></button>)}</section><p className="demo-notice">Configurações demonstrativas — os dados ainda não são salvos.</p></div> }
