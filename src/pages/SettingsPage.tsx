@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { addCategory, archiveCategory, updateCategory } from '../db/categories'
 import { useCategories } from '../db/hooks'
+import { BackupActions } from '../components/BackupActions'
 import { Icon } from '../components/Icon'
 
 const items = [['Perfil', 'André Martins'], ['Categorias', 'Organize seus gastos'], ['Orçamentos', 'Defina seus limites'], ['Aparência', 'Claro']]
@@ -50,5 +51,5 @@ function CategoriesPage({ onBack }: { onBack: () => void }) {
 export function SettingsPage() {
   const [isManagingCategories, setManagingCategories] = useState(false)
   if (isManagingCategories) return <CategoriesPage onBack={() => setManagingCategories(false)} />
-  return <div className="page"><header className="page-header"><div><p className="eyebrow">Personalize sua experiência</p><h1>Ajustes</h1></div></header><section className="settings-profile"><span className="avatar large">AM</span><div><h2>André Martins</h2><p>Conta pessoal</p></div><Icon name="chevron-right" /></section><section className="settings-list">{items.map(([title, detail]) => <button key={title} onClick={() => title === 'Categorias' && setManagingCategories(true)}><span><strong>{title}</strong><small>{detail}</small></span><Icon name="chevron-right" size={19} /></button>)}</section><p className="demo-notice">Todos os dados deste app são armazenados apenas neste dispositivo.</p></div>
+  return <div className="page"><header className="page-header"><div><p className="eyebrow">Personalize sua experiência</p><h1>Ajustes</h1></div></header><section className="settings-profile"><span className="avatar large">AM</span><div><h2>André Martins</h2><p>Conta pessoal</p></div><Icon name="chevron-right" /></section><section className="settings-list">{items.map(([title, detail]) => <button key={title} onClick={() => title === 'Categorias' && setManagingCategories(true)}><span><strong>{title}</strong><small>{detail}</small></span><Icon name="chevron-right" size={19} /></button>)}</section><BackupActions /><p className="demo-notice">Todos os dados deste app são armazenados apenas neste dispositivo.</p></div>
 }
